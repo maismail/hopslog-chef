@@ -2,8 +2,7 @@ my_private_ip = my_private_ip()
 
 elastic_url = any_elastic_url()
 elastic_addrs = all_elastic_urls_str()
-kibana_url = node['kibana']['opendistro_security']['https']['enabled'].casecmp?("true") ? "https://#{my_host()}:#{node['kibana']['port']}" : "http://#{my_private_ip}:#{node['kibana']['port']}"
-
+kibana_url = get_kibana_url()
 default_pattern = node['elastic']['default_kibana_index']
 
 group node['kagent']['certs_group'] do
