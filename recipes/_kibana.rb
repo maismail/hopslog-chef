@@ -104,15 +104,6 @@ if conda_helpers.is_upgrade
   end
 end  
 
-elastic_http 'create index pattern in kibana' do
-  action :post 
-  url "#{kibana_url}/api/saved_objects/index-pattern/#{default_pattern}?overwrite=true"
-  user node['elastic']['opendistro_security']['kibana']['username']
-  password node['elastic']['opendistro_security']['kibana']['password']
-  message "{\"attributes\":{\"title\":\"#{default_pattern}\"}}"
-  headers({'kbn-xsrf' => 'required'})
-end
-
 template"#{node['kibana']['base_dir']}/config/hops_upgrade_060.sh" do
   source "hops_upgrade_060.sh.erb"
   owner node['hopslog']['user']
